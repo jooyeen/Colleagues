@@ -1,0 +1,9 @@
+# Ignore everything
+*
+
+# But track these files
+!.gitignore
+!README.md
+!PUBLISH/
+!PUBLISH/**
+!publish.py
