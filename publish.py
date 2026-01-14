@@ -39,8 +39,10 @@ def main():
     # Ensure PUBLISH folder exists
     PUBLISH_PATH.mkdir(exist_ok=True)
 
-    # Clear existing files in PUBLISH folder
+    # Clear existing contents in PUBLISH folder (except .gitkeep)
     for item in PUBLISH_PATH.iterdir():
+        if item.name == '.gitkeep':
+            continue
         if item.is_file():
             item.unlink()
         elif item.is_dir():
@@ -61,16 +63,9 @@ def main():
         scanned_count += 1
 
         if has_publish_frontmatter(md_file):
-            dest = PUBLISH_PATH / md_file.name
-
-            # Handle duplicate filenames by adding a suffix
-            if dest.exists():
-                stem = md_file.stem
-                suffix = md_file.suffix
-                counter = 1
-                while dest.exists():
-                    dest = PUBLISH_PATH / f"{stem}_{counter}{suffix}"
-                    counter += 1
+            # Preserve folder structure from vault
+            dest = PUBLISH_PATH / relative
+            dest.parent.mkdir(parents=True, exist_ok=True)
 
             shutil.copy2(md_file, dest)
             print(f"Published: {relative}")

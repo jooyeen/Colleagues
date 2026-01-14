@@ -18,4 +18,4 @@ Then run the publish script:
 python publish.py
 ```
 
-This will copy all files with `publish: true` to the `PUBLISH/` folder.
+This will copy all files with `publish: true` to the `PUBLISH/` folder, preserving the original folder structure from your vault.
